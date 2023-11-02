@@ -8,7 +8,7 @@ export interface Account {
     deleted_at: Date;
 }
 
-export interface Profile {
+export interface Material {
     id: number;
     account_id: number;
     full_name: string;
