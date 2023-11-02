@@ -1,0 +1,9 @@
+{
+    "package": "./package.json",
+    "extension": [
+        "test.ts"
+    ],
+    "require": "ts-node/register",
+    "watch-files": ["*.test.ts"],
+    "spec": "__tests__"
+}

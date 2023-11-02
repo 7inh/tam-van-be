@@ -1,0 +1,31 @@
+<h1 id="token">loading...</h1>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer ></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js" defer ></script>
+<script type="module">
+    window.addEventListener("DOMContentLoaded", () => {
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbWvdzixgbB4iNRPwOQdO9YDBLjb2Y0kE",
+            authDomain: "tdttalent.firebaseapp.com",
+            projectId: "tdttalent",
+            storageBucket: "tdttalent.appspot.com",
+            messagingSenderId: "946513130642",
+            appId: "1:946513130642:web:410ead291ed258be88224b",
+            measurementId: "G-9QEP4HT6TR"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        firebase
+            .auth()
+            // .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            .signInWithEmailAndPassword("", "")
+            .then((result) => {
+                console.log('result', result)
+                result.user.getIdToken().then((token) => {
+                    console.log('token', token)
+                })
+            })
+    });
+    
+</script>

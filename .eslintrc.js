@@ -1,0 +1,72 @@
+module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+    "import/resolver": {
+      typescript: {},
+    },
+  },
+  extends: [
+    "prettier",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:testing-library/react",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "testing-library"],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: "module",
+  },
+  rules: {
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "no-eval": "warn",
+    "no-proto": 2,
+    "react/display-name": "off",
+    "react/prop-types": "off",
+    "import/no-named-as-default-member": 0,
+    "import/no-named-as-default": 0,
+    "import/named": 0,
+    "import/export": 0,
+    "import/default": 0,
+    "import/no-unused-modules": 0,
+    "import/namespace": 0,
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "error",
+    "testing-library/prefer-screen-queries": "off",
+    "testing-library/no-render-in-setup": "off",
+    "testing-library/render-result-naming-convention": "off",
+    "testing-library/no-node-access": "off",
+    "testing-library/prefer-presence-queries": "off",
+    "testing-library/no-container": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        name: "react-admin",
+        message: "Please dont import from react-admin",
+      },
+      {
+        name: "ra-core",
+        message: "Please dont import from ra-core",
+      },
+      {
+        name: "ra-test",
+        message: "Please dont import from ra-test",
+      },
+    ],
+  },
+};
