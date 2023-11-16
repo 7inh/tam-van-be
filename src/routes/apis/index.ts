@@ -14,5 +14,8 @@ api.use("/availability", availability);
 api.use("/rare", rare);
 api.use("/item", item);
 api.use("/file", file);
+api.use("/test", (_req, res) => {
+    res.send("Hello World!");
+});
 
 export default api;
