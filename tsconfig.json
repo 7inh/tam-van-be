@@ -3,9 +3,8 @@
         "module": "commonjs",
         "esModuleInterop": true,
         "target": "es6",
-        "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "dist",
+        "outDir": "./dist",
         "useUnknownInCatchVariables": true,
         "jsx": "react-jsx",
         "allowJs": true,
@@ -13,7 +12,7 @@
         "strictFunctionTypes": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
-        "noEmit": true,
+        "noEmit": false,
         "skipLibCheck": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
@@ -27,8 +26,14 @@
         "lib": ["dom", "dom.iterable", "esnext"],
         "alwaysStrict": true,
         "baseUrl": "./",
+        "paths": {
+            "*": ["*"],
+            "src/*": ["src/*"]
+        },
         "types": ["@types/node", "@types/mocha"],
         "typeRoots": ["./node_modules/@types", "./src/utils/types"]
     },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"],
     "lib": ["es2015"]
 }

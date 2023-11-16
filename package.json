@@ -1,7 +1,6 @@
 {
   "name": "node_typescript",
   "version": "1.0.0",
-  "main": "dist/server.js",
   "license": "MIT",
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
@@ -36,8 +35,8 @@
   },
   "scripts": {
     "dev": "NODE_PATH=./ nodemon ./src/server.ts",
-    "build": "npx tsc",
-    "start": "NODE_PATH=./ node dist/server.js",
+    "build": "tsc",
+    "start": "NODE_PATH=./ node ./dist/src/server.js",
     "test": "NODE_PATH=./ NODE_ENV=DEV npx mocha",
     "knex": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts",
     "knex:schema": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts migrate:latest"

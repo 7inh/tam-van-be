@@ -1,7 +1,5 @@
-import database from "src/database/database";
+import database from "../../database/database";
 
 export async function getAll() {
-    return await database("variant")
-        .select("*")
-        .orderBy("id", "asc")
+    return await database("variant").select("*").orderBy("id", "asc");
 }
