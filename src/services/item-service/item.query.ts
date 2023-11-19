@@ -18,3 +18,11 @@ export async function getPerPage(page: number, perPage: number) {
         .limit(perPage)
         .offset((page - 1) * perPage);
 }
+
+export async function getTotal() {
+    return await database("item").count("id", { as: "total" }).first();
+}
+
+export async function getById(id: number) {
+    return await database("item").select("*").where({ id }).first();
+}

@@ -1,9 +1,11 @@
-import { getAll, getPerPage } from "./item.query";
+import { getAll, getById, getPerPage, getTotal } from "./item.query";
 
 const ItemService = {
     query: {
         getAll,
         getPerPage,
+        getTotal,
+        getById,
     },
 };
 

@@ -24,7 +24,31 @@ const ItemController = {
                 parseInt(perPage)
             );
 
-            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemsDatabase);
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json([itemsDatabase]);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getTotal: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const total = await ItemService.query.getTotal();
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(total);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getById: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const { id } = req.params || req.query;
+
+            if (!id) {
+                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            }
+
+            const itemDatabase = await ItemService.query.getById(parseInt(id));
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
         } catch (error) {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
