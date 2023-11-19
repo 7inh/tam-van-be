@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, SUCCESS_DETAIL, SUCCESS_MESSAGE } from "../utils/definitions";
 import express from "express";
-import VariantService from "../services/variant-service/variant.service";
+import VariantService from "src/services/variant-service/variant.service";
 
 const VariantController = {
     getAll: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {

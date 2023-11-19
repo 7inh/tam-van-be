@@ -27,11 +27,11 @@
         "alwaysStrict": true,
         "baseUrl": "./",
         "paths": {
-            "*": ["*"],
-            "src/*": ["src/*"]
+            "*": ["*"]
         },
         "types": ["@types/node", "@types/mocha"],
-        "typeRoots": ["./node_modules/@types", "./src/utils/types"]
+        "typeRoots": ["./node_modules/@types", "./src/utils/types"],
+        "moduleResolution": "node"
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"],

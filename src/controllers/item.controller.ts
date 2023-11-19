@@ -12,6 +12,23 @@ const ItemController = {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
+    getPerPage: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const { page, perPage } = req.params;
+
+            if (!page || !perPage) {
+                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            }
+            const itemsDatabase = await ItemService.query.getPerPage(
+                parseInt(page),
+                parseInt(perPage)
+            );
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemsDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
 };
 
 export default ItemController;
