@@ -24,7 +24,7 @@ const ItemController = {
                 parseInt(perPage)
             );
 
-            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json([itemsDatabase]);
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemsDatabase);
         } catch (error) {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
