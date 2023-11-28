@@ -7,5 +7,6 @@ item.get("/get_all", ItemController.getAll);
 item.get("/get_per_page/:page/:perPage", ItemController.getPerPage);
 item.get("/get_total", ItemController.getTotal);
 item.get("/get_by_id/:id", ItemController.getById);
+item.get("/get_by_ids/:ids", ItemController.getByIds);
 
 export default item;

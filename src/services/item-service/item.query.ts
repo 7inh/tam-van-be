@@ -1,7 +1,30 @@
 import database from "src/database/database";
 
+// get all but not sold value
 export async function getAll() {
-    return await database("item").select("*").orderBy("id", "asc");
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            author: "item.author",
+            cover: "item.cover",
+            description: "item.description",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+            size: "item.size",
+            weight: "item.weight",
+            pages: "item.pages",
+
+            format: "item.format_id",
+            availability: "item.availability_id",
+            rare: "item.rare_id",
+            variant: "item.variant_id",
+
+            publisher: "item.publisher",
+        })
+        .orderBy("id", "asc")
+        .limit(10);
 }
 
 export async function getPerPage(page: number, perPage: number) {
@@ -24,5 +47,52 @@ export async function getTotal() {
 }
 
 export async function getById(id: number) {
-    return await database("item").select("*").where({ id }).first();
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            author: "item.author",
+            cover: "item.cover",
+            description: "item.description",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+            size: "item.size",
+            weight: "item.weight",
+            pages: "item.pages",
+
+            format: "item.format_id",
+            availability: "item.availability_id",
+            rare: "item.rare_id",
+            variant: "item.variant_id",
+
+            publisher: "item.publisher",
+        })
+        .where({ id })
+        .first();
+}
+
+export async function getByIds(ids: number[]) {
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            author: "item.author",
+            cover: "item.cover",
+            description: "item.description",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+            size: "item.size",
+            weight: "item.weight",
+            pages: "item.pages",
+
+            format: "item.format_id",
+            availability: "item.availability_id",
+            rare: "item.rare_id",
+            variant: "item.variant_id",
+
+            publisher: "item.publisher",
+        })
+        .whereIn("id", ids);
 }

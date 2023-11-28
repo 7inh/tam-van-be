@@ -37,20 +37,30 @@ export async function up(knex: Knex): Promise<void> {
         .createTable("item", (table) => {
             table.increments("id").primary().notNullable();
 
-            // table
-            //     .integer("variant_id")
-            //     .references("variant.id")
-            //     .defaultTo(1)
-            //     .onDelete("NO ACTION")
-            //     .onUpdate("CASCADE");
-            // table.integer("material_id").references("material.id").onDelete('NO ACTION').onUpdate('CASCADE');
-            // table.integer("availability_id").references("availability.id").onDelete('NO ACTION').onUpdate('CASCADE');
-            // table
-            //     .integer("rare_id")
-            //     .references("rare.id")
-            //     .defaultTo(1)
-            //     .onDelete("NO ACTION")
-            //     .onUpdate("CASCADE");
+            table
+                .integer("variant_id")
+                .references("variant.id")
+                .defaultTo(1)
+                .onDelete("NO ACTION")
+                .onUpdate("CASCADE");
+            table
+                .integer("availability_id")
+                .references("availability.id")
+                .defaultTo(1)
+                .onDelete("NO ACTION")
+                .onUpdate("CASCADE");
+            table
+                .integer("rare_id")
+                .references("rare.id")
+                .defaultTo(1)
+                .onDelete("NO ACTION")
+                .onUpdate("CASCADE");
+            table
+                .integer("format_id")
+                .references("format.id")
+                .defaultTo(1)
+                .onDelete("NO ACTION")
+                .onUpdate("CASCADE");
 
             table.string("title").notNullable();
             table.string("author");
@@ -63,13 +73,10 @@ export async function up(knex: Knex): Promise<void> {
 
             table.integer("quantity");
             table.integer("sold").defaultTo(0);
-            table.string("format");
+
             table.string("size");
             table.string("weight");
             table.integer("pages");
-            // table.string("availability");
-            // table.string("rare");
-            // table.string("variant");
 
             table.string("publisher");
 
@@ -94,6 +101,6 @@ export async function down(knex: Knex): Promise<void> {
         .dropTable("item")
         .dropTable("rare")
         .dropTable("availability")
-        .dropTable("material")
+        .dropTable("format")
         .dropTable("variant");
 }

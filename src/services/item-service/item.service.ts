@@ -1,4 +1,4 @@
-import { getAll, getById, getPerPage, getTotal } from "./item.query";
+import { getAll, getById, getByIds, getPerPage, getTotal } from "./item.query";
 
 const ItemService = {
     query: {
@@ -6,6 +6,7 @@ const ItemService = {
         getPerPage,
         getTotal,
         getById,
+        getByIds,
     },
 };
 

@@ -9,6 +9,7 @@ const ItemController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemsDatabase);
         } catch (error) {
+            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
@@ -40,13 +41,29 @@ const ItemController = {
     },
     getById: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const { id } = req.params || req.query;
+            const { id } = req.params;
 
             if (!id) {
                 return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
             }
 
             const itemDatabase = await ItemService.query.getById(parseInt(id));
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getByIds: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const { ids } = req.params;
+
+            if (!ids) {
+                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            }
+
+            const itemIds: number[] = ids.split(",").map(Number);
+            const itemDatabase = await ItemService.query.getByIds(itemIds);
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
         } catch (error) {
