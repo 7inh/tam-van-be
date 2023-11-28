@@ -2,10 +2,10 @@ import { Knex } from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("material").del();
+    await knex("format").del();
 
     // Inserts seed entries
-    await knex("material").insert([
+    await knex("format").insert([
         {
             id: 1,
             name: "PAPERBACK",
@@ -13,10 +13,6 @@ export async function seed(knex: Knex): Promise<void> {
         {
             id: 2,
             name: "HARDCOVER",
-        },
-        {
-            id: 3,
-            name: "EBOOK",
         },
     ]);
 }

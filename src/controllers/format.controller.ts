@@ -1,11 +1,11 @@
 import express from "express";
-import MaterialService from "src/services/material-service/material.service";
+import FormatService from "src/services/format-service/format.service";
 import { ERROR_MESSAGE, SUCCESS_DETAIL, SUCCESS_MESSAGE } from "src/utils/definitions";
 
-const MaterialController = {
+const FormatController = {
     getAll: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const materialDatabase = await MaterialService.query.getAll();
+            const materialDatabase = await FormatService.query.getAll();
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(materialDatabase);
         } catch (error) {
@@ -14,4 +14,4 @@ const MaterialController = {
     },
 };
 
-export default MaterialController;
+export default FormatController;

@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<void> {
             table.datetime("updated_at");
             table.datetime("deleted_at");
         })
-        .createTable("material", (table) => {
+        .createTable("format", (table) => {
             table.increments("id").primary().notNullable();
             table.string("name").notNullable();
 
@@ -37,20 +37,20 @@ export async function up(knex: Knex): Promise<void> {
         .createTable("item", (table) => {
             table.increments("id").primary().notNullable();
 
-            table
-                .integer("variant_id")
-                .references("variant.id")
-                .defaultTo(1)
-                .onDelete("NO ACTION")
-                .onUpdate("CASCADE");
+            // table
+            //     .integer("variant_id")
+            //     .references("variant.id")
+            //     .defaultTo(1)
+            //     .onDelete("NO ACTION")
+            //     .onUpdate("CASCADE");
             // table.integer("material_id").references("material.id").onDelete('NO ACTION').onUpdate('CASCADE');
             // table.integer("availability_id").references("availability.id").onDelete('NO ACTION').onUpdate('CASCADE');
-            table
-                .integer("rare_id")
-                .references("rare.id")
-                .defaultTo(1)
-                .onDelete("NO ACTION")
-                .onUpdate("CASCADE");
+            // table
+            //     .integer("rare_id")
+            //     .references("rare.id")
+            //     .defaultTo(1)
+            //     .onDelete("NO ACTION")
+            //     .onUpdate("CASCADE");
 
             table.string("title").notNullable();
             table.string("author");
@@ -61,13 +61,17 @@ export async function up(knex: Knex): Promise<void> {
             table.string("discount");
             table.integer("current_price").notNullable();
 
-            table.integer("quantity").notNullable();
+            table.integer("quantity");
             table.integer("sold").defaultTo(0);
-            table.string("format").defaultTo("paperback");
-            table.string("size").defaultTo("updating");
-            table.integer("pages").defaultTo(0);
-            table.string("weight").defaultTo("updating");
-            table.string("publisher").defaultTo("updating");
+            table.string("format");
+            table.string("size");
+            table.string("weight");
+            table.integer("pages");
+            // table.string("availability");
+            // table.string("rare");
+            // table.string("variant");
+
+            table.string("publisher");
 
             table.datetime("created_at").defaultTo(knex.fn.now());
             table.datetime("updated_at");
