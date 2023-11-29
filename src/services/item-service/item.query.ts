@@ -96,3 +96,73 @@ export async function getByIds(ids: number[]) {
         })
         .whereIn("id", ids);
 }
+
+export async function getByName(name: string) {
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            cover: "item.cover",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+        })
+        .where("title", "like", `%${name}%`);
+}
+
+export async function getRandom() {
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            cover: "item.cover",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+        })
+        .orderByRaw("RAND()")
+        .limit(3);
+}
+
+export async function getPopular() {
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            cover: "item.cover",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+        })
+        .orderBy("sold", "desc")
+        .limit(8);
+}
+
+export async function getNewest() {
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            cover: "item.cover",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+        })
+        .orderBy("crawl_at", "desc")
+        .limit(8);
+}
+
+export async function getComingSoon() {
+    return await database("item")
+        .select({
+            id: "item.id",
+            title: "item.title",
+            cover: "item.cover",
+            current_price: "item.current_price",
+            discount: "item.discount",
+            old_price: "item.old_price",
+        })
+        .where("availability_id", 1)
+        .orderBy("crawl_at", "asc")
+        .limit(8);
+}

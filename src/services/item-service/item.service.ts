@@ -1,4 +1,15 @@
-import { getAll, getById, getByIds, getPerPage, getTotal } from "./item.query";
+import {
+    getAll,
+    getById,
+    getByIds,
+    getPerPage,
+    getTotal,
+    getByName,
+    getRandom,
+    getPopular,
+    getNewest,
+    getComingSoon,
+} from "./item.query";
 
 const ItemService = {
     query: {
@@ -7,6 +18,11 @@ const ItemService = {
         getTotal,
         getById,
         getByIds,
+        getByName,
+        getRandom,
+        getPopular,
+        getNewest,
+        getComingSoon,
     },
 };
 

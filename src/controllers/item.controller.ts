@@ -70,6 +70,65 @@ const ItemController = {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
+    getByName: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const { name } = req.params;
+
+            if (!name) {
+                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            }
+
+            const itemDatabase = await ItemService.query.getByName(name);
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getRandom: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const itemDatabase = await ItemService.query.getRandom();
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getPopular: async (
+        _req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            const itemDatabase = await ItemService.query.getPopular();
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getNewest: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const itemDatabase = await ItemService.query.getNewest();
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
+    getComingSoon: async (
+        _req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            const itemDatabase = await ItemService.query.getComingSoon();
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
 };
 
 export default ItemController;

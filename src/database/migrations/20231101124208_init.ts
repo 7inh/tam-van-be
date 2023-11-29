@@ -34,6 +34,14 @@ export async function up(knex: Knex): Promise<void> {
             table.datetime("updated_at");
             table.datetime("deleted_at");
         })
+        .createTable("publisher", (table) => {
+            table.increments("id").primary().notNullable();
+            table.string("name").notNullable();
+
+            table.datetime("created_at").defaultTo(knex.fn.now());
+            table.datetime("updated_at");
+            table.datetime("deleted_at");
+        })
         .createTable("item", (table) => {
             table.increments("id").primary().notNullable();
 
@@ -61,14 +69,20 @@ export async function up(knex: Knex): Promise<void> {
                 .defaultTo(1)
                 .onDelete("NO ACTION")
                 .onUpdate("CASCADE");
+            table
+                .integer("publisher_id")
+                .references("publisher.id")
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE");
 
+            table.string("source").notNullable();
             table.string("title").notNullable();
             table.string("author");
             table.string("cover");
             table.text("description");
 
             table.integer("old_price").notNullable();
-            table.string("discount");
+            table.integer("discount");
             table.integer("current_price").notNullable();
 
             table.integer("quantity");
@@ -78,7 +92,7 @@ export async function up(knex: Knex): Promise<void> {
             table.string("weight");
             table.integer("pages");
 
-            table.string("publisher");
+            table.datetime("crawl_at").defaultTo(knex.fn.now());
 
             table.datetime("created_at").defaultTo(knex.fn.now());
             table.datetime("updated_at");
@@ -92,13 +106,35 @@ export async function up(knex: Knex): Promise<void> {
             table.datetime("created_at").defaultTo(knex.fn.now());
             table.datetime("updated_at");
             table.datetime("deleted_at");
+        })
+        .createTable("coupon", (table) => {
+            table.increments("id").primary().notNullable();
+            table.string("code").notNullable();
+            table.integer("discount").notNullable();
+            table.integer("max_discount");
+            table.integer("min_price"); // min price to use coupon
+            table.integer("quantity").notNullable();
+            table.integer("used").defaultTo(0);
+            table.integer("limit");
+            table.integer("type");
+            table.integer("variant").defaultTo(0); // 0: all, 1: once, 2: set of items, 3: full
+
+            table.string("description");
+            table.datetime("started_at").notNullable();
+            table.datetime("expired_at").notNullable();
+
+            table.datetime("created_at").defaultTo(knex.fn.now());
+            table.datetime("updated_at");
+            table.datetime("deleted_at");
         });
 }
 
 export async function down(knex: Knex): Promise<void> {
     return knex.schema
+        .dropTable("coupon")
         .dropTable("photo")
         .dropTable("item")
+        .dropTable("publisher")
         .dropTable("rare")
         .dropTable("availability")
         .dropTable("format")
