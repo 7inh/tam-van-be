@@ -1,50 +1,54 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 import dotenv from "dotenv";
 
-dotenv.config({path: '../../.env'});
+dotenv.config({ path: "../../.env" });
 
 interface IKnexConfig {
     [key: string]: Knex.Config;
 }
 
-const knexConfig : IKnexConfig  = {
+const knexConfig: IKnexConfig = {
     development: {
-        client: 'postgresql',
+        client: "postgresql",
         connection: {
             database: "qeeexkex",
             user: "qeeexkex",
-            password: "pdZejt6Ltz978YESL1ArzJb9RXly-k2F",
+            password: "EPSXZfDdCa_FM1bucYKGcMkzrcmQ8kOl",
             host: "satao.db.elephantsql.com",
         },
         pool: {
             min: 3,
-            max: 10
+            max: 5,
         },
         migrations: {
-            tableName: 'knex_migrations'
+            tableName: "knex_migrations",
         },
         seeds: {
-          directory: './seeds',
-          extension: 'ts'
+            directory: "./seeds",
+            extension: "ts",
         },
     },
 
     production: {
-        client: 'postgresql',
+        client: "postgresql",
         connection: {
             database: "qeeexkex",
             user: "qeeexkex",
-            password: "pdZejt6Ltz978YESL1ArzJb9RXly-k2F",
+            password: "EPSXZfDdCa_FM1bucYKGcMkzrcmQ8kOl",
             host: "satao.db.elephantsql.com",
         },
         pool: {
             min: 3,
-            max: 10
+            max: 5,
         },
         migrations: {
-            tableName: 'knex_migrations'
-        }
+            tableName: "knex_migrations",
+        },
+        seeds: {
+            directory: "./seeds",
+            extension: "ts",
+        },
     },
 };
 
-export default knexConfig
+export default knexConfig;
