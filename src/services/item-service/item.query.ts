@@ -36,6 +36,7 @@ export async function getPerPage(page: number, perPage: number) {
             current_price: "item.current_price",
             discount: "item.discount",
             old_price: "item.old_price",
+            publisher: "item.publisher_id",
         })
         .orderBy("id", "asc")
         .limit(perPage)
@@ -66,7 +67,7 @@ export async function getById(id: number) {
             rare: "item.rare_id",
             variant: "item.variant_id",
 
-            publisher: "item.publisher",
+            publisher: "item.publisher_id",
         })
         .where({ id })
         .first();
@@ -92,7 +93,7 @@ export async function getByIds(ids: number[]) {
             rare: "item.rare_id",
             variant: "item.variant_id",
 
-            publisher: "item.publisher",
+            publisher: "item.publisher_id",
         })
         .whereIn("id", ids);
 }
@@ -119,8 +120,9 @@ export async function getRandom() {
             current_price: "item.current_price",
             discount: "item.discount",
             old_price: "item.old_price",
+            publisher: "item.publisher_id",
         })
-        .orderByRaw("RAND()")
+        .orderByRaw(database.raw("RANDOM()"))
         .limit(3);
 }
 
