@@ -37,6 +37,8 @@ export async function getPerPage(page: number, perPage: number) {
             discount: "item.discount",
             old_price: "item.old_price",
             publisher: "item.publisher_id",
+            description: "item.description",
+            author: "item.author",
         })
         .orderBy("id", "asc")
         .limit(perPage)
@@ -121,6 +123,8 @@ export async function getRandom() {
             discount: "item.discount",
             old_price: "item.old_price",
             publisher: "item.publisher_id",
+            description: "item.description",
+            author: "item.author",
         })
         .orderByRaw(database.raw("RANDOM()"))
         .limit(3);
