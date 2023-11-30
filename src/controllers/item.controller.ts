@@ -46,9 +46,23 @@ const ItemController = {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
-    getTotal: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {
+    getTotal: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const total = await ItemService.query.getTotal();
+            const { format, availability, rare, variant, title } = req.query;
+
+            const formatIds: number[] = format ? format.toString().split(",").map(Number) : [];
+            const availabilityIds: number[] = availability
+                ? availability.toString().split(",").map(Number)
+                : [];
+            const rareIds: number[] = rare ? rare.toString().split(",").map(Number) : [];
+            const variantIds: number[] = variant ? variant.toString().split(",").map(Number) : [];
+            const total = await ItemService.query.getTotal({
+                format: formatIds,
+                availability: availabilityIds,
+                rare: rareIds,
+                variant: variantIds,
+                title: title ? title.toString() : "",
+            });
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(total);
         } catch (error) {

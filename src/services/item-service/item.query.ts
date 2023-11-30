@@ -63,8 +63,27 @@ export async function getPerPage(page: number, perPage: number, options: FilterO
         .offset((page - 1) * perPage);
 }
 
-export async function getTotal() {
-    return await database("item").count("id", { as: "total" }).first();
+export async function getTotal(options: FilterOptions) {
+    return await database("item")
+        .where((builder) => {
+            if (options.format.length > 0) {
+                builder.whereIn("format_id", options.format);
+            }
+            if (options.availability.length > 0) {
+                builder.whereIn("availability_id", options.availability);
+            }
+            if (options.rare.length > 0) {
+                builder.whereIn("rare_id", options.rare);
+            }
+            if (options.variant.length > 0) {
+                builder.whereIn("variant_id", options.variant);
+            }
+            if (options.title) {
+                builder.where("title", "like", `%${options.title}%`);
+            }
+        })
+        .count("id", { as: "total" })
+        .first();
 }
 
 export async function getById(id: number) {
