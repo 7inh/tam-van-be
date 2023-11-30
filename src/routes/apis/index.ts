@@ -17,5 +17,8 @@ api.use("/item", item);
 api.use("/test", (_req, res) => {
     res.send("Hello World!");
 });
+api.use("/env", (_req, res) => {
+    res.send(process.env.NODE_ENV);
+});
 
 export default api;

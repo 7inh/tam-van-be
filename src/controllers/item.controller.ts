@@ -16,13 +16,29 @@ const ItemController = {
     getPerPage: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const { page, perPage } = req.params;
+            const { format, availability, rare, variant, title } = req.query;
 
             if (!page || !perPage) {
                 return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
             }
+
+            const formatIds: number[] = format ? format.toString().split(",").map(Number) : [];
+            const availabilityIds: number[] = availability
+                ? availability.toString().split(",").map(Number)
+                : [];
+            const rareIds: number[] = rare ? rare.toString().split(",").map(Number) : [];
+            const variantIds: number[] = variant ? variant.toString().split(",").map(Number) : [];
+
             const itemsDatabase = await ItemService.query.getPerPage(
                 parseInt(page),
-                parseInt(perPage)
+                parseInt(perPage),
+                {
+                    format: formatIds,
+                    availability: availabilityIds,
+                    rare: rareIds,
+                    variant: variantIds,
+                    title: title ? title.toString() : "",
+                }
             );
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemsDatabase);

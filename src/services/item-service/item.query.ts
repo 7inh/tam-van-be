@@ -1,4 +1,5 @@
 import database from "src/database/database";
+import { FilterOptions } from "src/utils/types/type";
 
 // get all but not sold value
 export async function getAll() {
@@ -27,7 +28,7 @@ export async function getAll() {
         .limit(10);
 }
 
-export async function getPerPage(page: number, perPage: number) {
+export async function getPerPage(page: number, perPage: number, options: FilterOptions) {
     return await database("item")
         .select({
             id: "item.id",
@@ -39,6 +40,23 @@ export async function getPerPage(page: number, perPage: number) {
             publisher: "item.publisher_id",
             description: "item.description",
             author: "item.author",
+        })
+        .where((builder) => {
+            if (options.format.length > 0) {
+                builder.whereIn("format_id", options.format);
+            }
+            if (options.availability.length > 0) {
+                builder.whereIn("availability_id", options.availability);
+            }
+            if (options.rare.length > 0) {
+                builder.whereIn("rare_id", options.rare);
+            }
+            if (options.variant.length > 0) {
+                builder.whereIn("variant_id", options.variant);
+            }
+            if (options.title) {
+                builder.where("title", "like", `%${options.title}%`);
+            }
         })
         .orderBy("id", "asc")
         .limit(perPage)
@@ -126,6 +144,7 @@ export async function getRandom() {
             description: "item.description",
             author: "item.author",
         })
+        .where("availability_id", 2)
         .orderByRaw(database.raw("RANDOM()"))
         .limit(3);
 }
