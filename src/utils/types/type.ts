@@ -7,4 +7,5 @@ export interface FilterOptions {
     rare: number[];
     variant: number[];
     orderBy?: OrderByType;
+    priceRange?: number[];
 }

@@ -18,7 +18,7 @@ const ItemController = {
     getPerPage: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const { page, perPage } = req.params;
-            const { format, availability, rare, variant, title, orderBy } = req.query;
+            const { format, availability, rare, variant, title, orderBy, priceRange } = req.query;
 
             if (!page || !perPage) {
                 return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
@@ -30,6 +30,9 @@ const ItemController = {
                 : [];
             const rareIds: number[] = rare ? rare.toString().split(",").map(Number) : [];
             const variantIds: number[] = variant ? variant.toString().split(",").map(Number) : [];
+            const priceRangeIds: number[] = priceRange
+                ? priceRange.toString().split(",").map(Number)
+                : [];
 
             const itemsDatabase = await ItemService.query.getPerPage(
                 parseInt(page),
@@ -43,6 +46,7 @@ const ItemController = {
                     orderBy: isOrderByType(orderBy?.toString() || "")
                         ? (orderBy?.toString() as OrderByType)
                         : "newest",
+                    priceRange: priceRangeIds,
                 }
             );
 

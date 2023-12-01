@@ -50,7 +50,7 @@ export async function getAll() {
 export async function getPerPage(
     page: number,
     perPage: number,
-    { orderBy, ...options }: FilterOptions
+    { orderBy, priceRange, ...options }: FilterOptions
 ) {
     return await database("item")
         .select({
@@ -80,13 +80,17 @@ export async function getPerPage(
             if (options.title) {
                 builder.where("title", "like", `%${options.title}%`);
             }
+            if (priceRange?.length === 2) {
+                const [minPrice, maxPrice] = priceRange;
+                builder.whereBetween("current_price", [minPrice, maxPrice]);
+            }
         })
         .orderByRaw(mapOrderBy(orderBy || "newest"))
         .limit(perPage)
         .offset((page - 1) * perPage);
 }
 
-export async function getTotal(options: FilterOptions) {
+export async function getTotal({ priceRange, ...options }: FilterOptions) {
     return await database("item")
         .where((builder) => {
             if (options.format.length > 0) {
@@ -103,6 +107,10 @@ export async function getTotal(options: FilterOptions) {
             }
             if (options.title) {
                 builder.where("title", "like", `%${options.title}%`);
+            }
+            if (priceRange?.length === 2) {
+                const [minPrice, maxPrice] = priceRange;
+                builder.whereBetween("current_price", [minPrice, maxPrice]);
             }
         })
         .count("id", { as: "total" })
