@@ -57,7 +57,7 @@ const ItemController = {
     },
     getTotal: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const { format, availability, rare, variant, title } = req.query;
+            const { format, availability, rare, variant, title, priceRange } = req.query;
 
             const formatIds: number[] = format ? format.toString().split(",").map(Number) : [];
             const availabilityIds: number[] = availability
@@ -65,12 +65,17 @@ const ItemController = {
                 : [];
             const rareIds: number[] = rare ? rare.toString().split(",").map(Number) : [];
             const variantIds: number[] = variant ? variant.toString().split(",").map(Number) : [];
+            const priceRangeIds: number[] = priceRange
+                ? priceRange.toString().split(",").map(Number)
+                : [];
+
             const total = await ItemService.query.getTotal({
                 format: formatIds,
                 availability: availabilityIds,
                 rare: rareIds,
                 variant: variantIds,
                 title: title ? title.toString() : "",
+                priceRange: priceRangeIds,
             });
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(total);
