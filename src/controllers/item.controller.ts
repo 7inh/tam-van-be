@@ -165,6 +165,26 @@ const ItemController = {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
+    updateSoldByIds: async (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            const { items } = req.body;
+
+            if (!items) {
+                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            }
+
+            const itemDatabase = await ItemService.mutate.updateSoldByIds(items);
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+        } catch (error) {
+            console.log(error);
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
 };
 
 export default ItemController;

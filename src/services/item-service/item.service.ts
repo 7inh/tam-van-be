@@ -1,3 +1,4 @@
+import { updateSoldByIds } from "src/services/item-service/item.mutate";
 import {
     getAll,
     getById,
@@ -23,6 +24,9 @@ const ItemService = {
         getPopular,
         getNewest,
         getComingSoon,
+    },
+    mutate: {
+        updateSoldByIds,
     },
 };
 

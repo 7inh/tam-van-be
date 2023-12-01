@@ -14,4 +14,6 @@ item.get("/get_popular", ItemController.getPopular);
 item.get("/get_newest", ItemController.getNewest);
 item.get("/get_coming_soon", ItemController.getComingSoon);
 
+item.put("/update_sold_by_ids", ItemController.updateSoldByIds);
+
 export default item;
