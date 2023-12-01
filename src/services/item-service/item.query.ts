@@ -1,5 +1,24 @@
 import database from "src/database/database";
-import { FilterOptions } from "src/utils/types/type";
+import { FilterOptions, OrderByType } from "src/utils/types/type";
+
+const mapOrderBy = (orderBy: OrderByType) => {
+    switch (orderBy) {
+        case "newest":
+            return "crawl_at desc";
+        case "oldest":
+            return "crawl_at asc";
+        case "priceAsc":
+            return "current_price asc";
+        case "priceDesc":
+            return "current_price desc";
+        case "sale":
+            return "discount desc";
+        case "discount":
+            return "discount desc";
+        default:
+            return "crawl_at desc";
+    }
+};
 
 // get all but not sold value
 export async function getAll() {
@@ -28,7 +47,11 @@ export async function getAll() {
         .limit(10);
 }
 
-export async function getPerPage(page: number, perPage: number, options: FilterOptions) {
+export async function getPerPage(
+    page: number,
+    perPage: number,
+    { orderBy, ...options }: FilterOptions
+) {
     return await database("item")
         .select({
             id: "item.id",
@@ -58,7 +81,7 @@ export async function getPerPage(page: number, perPage: number, options: FilterO
                 builder.where("title", "like", `%${options.title}%`);
             }
         })
-        .orderBy("id", "asc")
+        .orderByRaw(mapOrderBy(orderBy || "newest"))
         .limit(perPage)
         .offset((page - 1) * perPage);
 }

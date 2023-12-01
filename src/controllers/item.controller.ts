@@ -1,6 +1,8 @@
 import express from "express";
+import { isOrderByType } from "src/common/util";
 import ItemService from "src/services/item-service/item.service";
 import { ERROR_MESSAGE, SUCCESS_DETAIL, SUCCESS_MESSAGE } from "src/utils/definitions";
+import { OrderByType } from "src/utils/types/type";
 
 const ItemController = {
     getAll: async (_req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -16,7 +18,7 @@ const ItemController = {
     getPerPage: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const { page, perPage } = req.params;
-            const { format, availability, rare, variant, title } = req.query;
+            const { format, availability, rare, variant, title, orderBy } = req.query;
 
             if (!page || !perPage) {
                 return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
@@ -38,6 +40,9 @@ const ItemController = {
                     rare: rareIds,
                     variant: variantIds,
                     title: title ? title.toString() : "",
+                    orderBy: isOrderByType(orderBy?.toString() || "")
+                        ? (orderBy?.toString() as OrderByType)
+                        : "newest",
                 }
             );
 
