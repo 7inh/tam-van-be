@@ -13,7 +13,9 @@ const CouponController = {
                 return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(couponDatabase);
             }
 
-            return next(new Error(ERROR_MESSAGE.NOT_FOUND));
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json({
+                code: "COUPON_NOT_FOUND",
+            });
         } catch (error) {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
