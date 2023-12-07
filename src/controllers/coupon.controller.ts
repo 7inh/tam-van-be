@@ -1,6 +1,11 @@
 import express from "express";
 import CouponService from "src/services/coupon-service/coupon.service";
-import { ERROR_MESSAGE, SUCCESS_DETAIL, SUCCESS_MESSAGE } from "src/utils/definitions";
+import {
+    ERROR_DETAIL,
+    ERROR_MESSAGE,
+    SUCCESS_DETAIL,
+    SUCCESS_MESSAGE,
+} from "src/utils/definitions";
 
 const CouponController = {
     getByCode: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -13,7 +18,7 @@ const CouponController = {
                 return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(couponDatabase);
             }
 
-            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json({
+            return res.status(ERROR_DETAIL[ERROR_MESSAGE.NOT_FOUND].status).json({
                 code: "COUPON_NOT_FOUND",
             });
         } catch (error) {
