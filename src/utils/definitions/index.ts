@@ -3,6 +3,7 @@ export const ERROR_MESSAGE = {
     UNAUTHORIZED: "UNAUTHORIZED",
     BAD_REQUEST: "BAD_REQUEST",
     NOT_ACCEPTABLE: "NOT_ACCEPTABLE",
+    NOT_FOUND: "NOT_FOUND",
 };
 
 export const ERROR_DETAIL = {
@@ -22,6 +23,10 @@ export const ERROR_DETAIL = {
         message:
             "This web server doesn't find any content that conforms to the criteria given by the user agent.",
         status: 406,
+    },
+    [ERROR_MESSAGE.NOT_FOUND]: {
+        message: "Not found",
+        status: 404,
     },
 };
 

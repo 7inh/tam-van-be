@@ -5,9 +5,11 @@ import item from "./item";
 // import rare from "./rare";
 // import file from "./file";
 import express from "express";
+import coupon from "src/routes/apis/coupon";
 
 const api = express.Router();
 
+api.use("/coupon", coupon);
 api.use("/variant", variant);
 // api.use("/material", material);
 // api.use("/availability", availability);
