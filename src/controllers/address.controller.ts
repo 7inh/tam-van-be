@@ -45,6 +45,40 @@ const AddressController = {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
+    getPrice: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const {
+                senderProvince,
+                senderDistrict,
+                receiverProvince,
+                receiverDistrict,
+                productWeight,
+            } = req.query;
+
+            if (
+                !senderProvince ||
+                !senderDistrict ||
+                !receiverProvince ||
+                !receiverDistrict ||
+                !productWeight
+            ) {
+                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            }
+
+            const price = await AddressService.query.getPrice({
+                senderProvince: Number(senderProvince),
+                senderDistrict: Number(senderDistrict),
+                receiverProvince: Number(receiverProvince),
+                receiverDistrict: Number(receiverDistrict),
+                productWeight: Number(productWeight),
+            });
+
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(price);
+        } catch (error) {
+            console.log(error);
+            return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+        }
+    },
 };
 
 export default AddressController;

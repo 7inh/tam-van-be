@@ -9,3 +9,11 @@ export interface FilterOptions {
     orderBy?: OrderByType;
     priceRange?: number[];
 }
+
+export interface AddressGetPrice {
+    senderProvince: number;
+    senderDistrict: number;
+    receiverProvince: number;
+    receiverDistrict: number;
+    productWeight: number;
+}
