@@ -78,7 +78,7 @@ export async function getPerPage(
                 builder.whereIn("variant_id", options.variant);
             }
             if (options.title) {
-                builder.where("title", "like", `%${options.title}%`);
+                builder.whereRaw("LOWER(title) LIKE ?", [`%${options.title.toLowerCase()}%`]);
             }
             if (priceRange?.length === 2) {
                 const [minPrice, maxPrice] = priceRange;
