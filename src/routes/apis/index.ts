@@ -6,9 +6,11 @@ import item from "./item";
 // import file from "./file";
 import express from "express";
 import coupon from "src/routes/apis/coupon";
+import address from "src/routes/apis/address";
 
 const api = express.Router();
 
+api.use("/address", address);
 api.use("/coupon", coupon);
 api.use("/variant", variant);
 // api.use("/material", material);
