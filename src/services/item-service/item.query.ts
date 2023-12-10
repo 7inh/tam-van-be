@@ -137,6 +137,9 @@ export async function getById(id: number) {
             rare: "item.rare_id",
             variant: "item.variant_id",
 
+            sold: "item.sold",
+            quantity: "item.quantity",
+
             publisher: "item.publisher_id",
         })
         .where({ id })
@@ -162,6 +165,9 @@ export async function getByIds(ids: number[]) {
             availability: "item.availability_id",
             rare: "item.rare_id",
             variant: "item.variant_id",
+
+            sold: "item.sold",
+            quantity: "item.quantity",
 
             publisher: "item.publisher_id",
         })
