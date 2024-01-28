@@ -43,6 +43,7 @@ export async function getAll() {
 
             publisher: "item.publisher",
         })
+        .where("deleted_at", null)
         .orderBy("id", "asc")
         .limit(10);
 }
@@ -85,6 +86,7 @@ export async function getPerPage(
                 builder.whereBetween("current_price", [minPrice, maxPrice]);
             }
         })
+        .andWhere("deleted_at", null)
         .orderByRaw(mapOrderBy(orderBy || "newest"))
         .limit(perPage)
         .offset((page - 1) * perPage);
@@ -113,6 +115,7 @@ export async function getTotal({ priceRange, ...options }: FilterOptions) {
                 builder.whereBetween("current_price", [minPrice, maxPrice]);
             }
         })
+        .andWhere("deleted_at", null)
         .count("id", { as: "total" })
         .first();
 }
@@ -143,6 +146,7 @@ export async function getById(id: number) {
             publisher: "item.publisher_id",
         })
         .where({ id })
+        .andWhere("deleted_at", null)
         .first();
 }
 
@@ -171,7 +175,8 @@ export async function getByIds(ids: number[]) {
 
             publisher: "item.publisher_id",
         })
-        .whereIn("id", ids);
+        .whereIn("id", ids)
+        .andWhere("deleted_at", null);
 }
 
 export async function getByName(name: string) {
@@ -184,7 +189,8 @@ export async function getByName(name: string) {
             discount: "item.discount",
             old_price: "item.old_price",
         })
-        .where("title", "like", `%${name}%`);
+        .where("title", "like", `%${name}%`)
+        .andWhere("deleted_at", null);
 }
 
 export async function getRandom() {
@@ -201,6 +207,7 @@ export async function getRandom() {
             author: "item.author",
         })
         .where("availability_id", 2)
+        .andWhere("deleted_at", null)
         .orderByRaw(database.raw("RANDOM()"))
         .limit(3);
 }
@@ -215,6 +222,7 @@ export async function getPopular() {
             discount: "item.discount",
             old_price: "item.old_price",
         })
+        .where("deleted_at", null)
         .orderBy("sold", "desc")
         .limit(8);
 }
@@ -229,6 +237,7 @@ export async function getNewest() {
             discount: "item.discount",
             old_price: "item.old_price",
         })
+        .where("deleted_at", null)
         .orderBy("crawl_at", "desc")
         .limit(8);
 }
@@ -244,6 +253,7 @@ export async function getComingSoon() {
             old_price: "item.old_price",
         })
         .where("availability_id", 1)
+        .andWhere("deleted_at", null)
         .orderBy("crawl_at", "asc")
         .limit(8);
 }
