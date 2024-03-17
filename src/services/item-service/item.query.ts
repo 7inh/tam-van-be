@@ -34,7 +34,7 @@ export async function getAll() {
             old_price: "item.old_price",
             size: "item.size",
             weight: "item.weight",
-            pages: "item.pages",
+            page: "item.page",
 
             format: "item.format_id",
             availability: "item.availability_id",
@@ -120,7 +120,7 @@ export async function getTotal({ priceRange, ...options }: FilterOptions) {
         .first();
 }
 
-export async function getById(id: number) {
+export async function getById(id: string) {
     return await database("item")
         .select({
             id: "item.id",
@@ -133,15 +133,14 @@ export async function getById(id: number) {
             old_price: "item.old_price",
             size: "item.size",
             weight: "item.weight",
-            pages: "item.pages",
+            page: "item.page",
+            eps_num: "item.eps_num",
 
             format: "item.format_id",
             availability: "item.availability_id",
             rare: "item.rare_id",
-            variant: "item.variant_id",
 
             sold: "item.sold",
-            quantity: "item.quantity",
 
             publisher: "item.publisher_id",
         })
@@ -150,7 +149,7 @@ export async function getById(id: number) {
         .first();
 }
 
-export async function getByIds(ids: number[]) {
+export async function getByIds(ids: string[]) {
     return await database("item")
         .select({
             id: "item.id",
@@ -163,7 +162,7 @@ export async function getByIds(ids: number[]) {
             old_price: "item.old_price",
             size: "item.size",
             weight: "item.weight",
-            pages: "item.pages",
+            page: "item.page",
 
             format: "item.format_id",
             availability: "item.availability_id",

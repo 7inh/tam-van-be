@@ -7,6 +7,7 @@ import item from "./item";
 import express from "express";
 import coupon from "src/routes/apis/coupon";
 import address from "src/routes/apis/address";
+import itemEps from "src/routes/apis/item_eps";
 
 const api = express.Router();
 
@@ -17,6 +18,7 @@ api.use("/variant", variant);
 // api.use("/availability", availability);
 // api.use("/rare", rare);
 api.use("/item", item);
+api.use("/item-eps", itemEps);
 // api.use("/file", file);
 api.use("/test", (_req, res) => {
     res.send("Hello World!");

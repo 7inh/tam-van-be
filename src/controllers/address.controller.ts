@@ -13,7 +13,6 @@ const AddressController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(province);
         } catch (error) {
-            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
@@ -29,7 +28,6 @@ const AddressController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(district);
         } catch (error) {
-            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
@@ -41,7 +39,6 @@ const AddressController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(ward);
         } catch (error) {
-            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
@@ -75,7 +72,6 @@ const AddressController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(price);
         } catch (error) {
-            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },

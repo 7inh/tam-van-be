@@ -13,3 +13,7 @@ export const isOrderByType = (type: string): type is OrderByType => {
             return false;
     }
 };
+
+export const isArrayString = (value: any): value is string[] => {
+    return Array.isArray(value) && value.every((item) => typeof item === "string");
+};

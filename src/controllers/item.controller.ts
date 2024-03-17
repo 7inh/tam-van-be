@@ -11,7 +11,6 @@ const ItemController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemsDatabase);
         } catch (error) {
-            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
@@ -91,7 +90,7 @@ const ItemController = {
                 return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
             }
 
-            const itemDatabase = await ItemService.query.getById(parseInt(id));
+            const itemDatabase = await ItemService.query.getById(id);
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
         } catch (error) {
@@ -100,16 +99,16 @@ const ItemController = {
     },
     getByIds: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const { ids } = req.params;
+            const { ids } = req.query;
 
-            if (!ids) {
-                return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
-            }
+            console.log("ids", ids);
+            // if (!ids) {
+            //     return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
+            // }
 
-            const itemIds: number[] = ids.split(",").map(Number);
-            const itemDatabase = await ItemService.query.getByIds(itemIds);
+            // const itemDatabase = await ItemService.query.getByIds(ids);
 
-            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
+            return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json([]);
         } catch (error) {
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
@@ -190,7 +189,6 @@ const ItemController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(itemDatabase);
         } catch (error) {
-            console.log(error);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
