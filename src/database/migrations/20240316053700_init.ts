@@ -43,18 +43,17 @@ export async function up(knex: Knex): Promise<void> {
             table.datetime("deleted_at");
         })
         .createTable("item", (table) => {
-            table.increments("id").primary().notNullable();
-
+            table.string("id").primary().notNullable().defaultTo(knex.raw("uuid_generate_v4()"));
             table
                 .integer("variant_id")
                 .references("variant.id")
-                .defaultTo(1)
+                .defaultTo(2)
                 .onDelete("NO ACTION")
                 .onUpdate("CASCADE");
             table
                 .integer("availability_id")
                 .references("availability.id")
-                .defaultTo(1)
+                .defaultTo(2)
                 .onDelete("NO ACTION")
                 .onUpdate("CASCADE");
             table
@@ -73,24 +72,23 @@ export async function up(knex: Knex): Promise<void> {
                 .integer("publisher_id")
                 .references("publisher.id")
                 .onDelete("CASCADE")
-                .onUpdate("CASCADE");
+                .onUpdate("CASCADE")
+                .defaultTo(1);
 
-            table.string("source").notNullable();
             table.string("title").notNullable();
             table.string("author");
             table.string("cover");
             table.text("description");
 
-            table.integer("old_price").notNullable();
-            table.integer("discount");
-            table.integer("current_price").notNullable();
-
-            table.integer("quantity");
-            table.integer("sold").defaultTo(0);
+            table.integer("old_price").notNullable().defaultTo(0);
+            table.integer("discount").notNullable().defaultTo(0);
+            table.integer("current_price").notNullable().defaultTo(0);
+            table.integer("eps_num").defaultTo(1);
+            table.boolean("show_eps_no").defaultTo(true);
 
             table.string("size");
             table.string("weight");
-            table.integer("pages");
+            table.integer("page");
 
             table.datetime("crawl_at").defaultTo(knex.fn.now());
 
@@ -98,10 +96,30 @@ export async function up(knex: Knex): Promise<void> {
             table.datetime("updated_at");
             table.datetime("deleted_at");
         })
-        .createTable("photo", (table) => {
+        .createTable("item_eps", (table) => {
             table.increments("id").primary().notNullable();
-            table.integer("item_id").references("item.id").onDelete("CASCADE").onUpdate("CASCADE");
-            table.string("urls").notNullable();
+            table.string("item_id").references("item.id").onDelete("CASCADE").onUpdate("CASCADE");
+            table.string("source").notNullable();
+            table.string("title").notNullable();
+            table.string("cover").notNullable();
+            table.integer("eps_no").notNullable();
+            table.string("description").notNullable();
+
+            table.integer("quantity").defaultTo(5);
+            table.integer("sold").defaultTo(0);
+
+            table.string("weight").defaultTo(0);
+
+            table.integer("old_price").notNullable().defaultTo(0);
+            table.integer("discount").notNullable().defaultTo(0);
+            table.integer("current_price").notNullable().defaultTo(0);
+
+            table
+                .integer("availability_id")
+                .references("availability.id")
+                .defaultTo(2)
+                .onDelete("NO ACTION")
+                .onUpdate("CASCADE");
 
             table.datetime("created_at").defaultTo(knex.fn.now());
             table.datetime("updated_at");
@@ -132,11 +150,10 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
     return knex.schema
         .dropTable("coupon")
-        .dropTable("photo")
+        .dropTable("item_eps")
         .dropTable("item")
         .dropTable("publisher")
         .dropTable("rare")
         .dropTable("availability")
-        .dropTable("format")
-        .dropTable("variant");
+        .dropTable("format");
 }

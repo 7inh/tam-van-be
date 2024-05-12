@@ -8,7 +8,6 @@ const FileController = {
 
             return res.status(SUCCESS_DETAIL[SUCCESS_MESSAGE.OK].status).json(req["file"]);
         } catch (e) {
-            console.error(e);
             return next(new Error(ERROR_MESSAGE.BAD_REQUEST));
         }
     },
