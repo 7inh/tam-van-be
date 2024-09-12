@@ -1,5 +1,5 @@
 const firebaseConfigWeb = {
-    apiKey: "AIzaSyAbWvdzixgbB4iNRPwOQdO9YDBLjb2Y0kE",
+    apiKey: process.env.FB_API_KEY,
     authDomain: "tdttalent.firebaseapp.com",
     projectId: "tdttalent",
     storageBucket: "tdttalent.appspot.com",
