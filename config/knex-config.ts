@@ -33,7 +33,7 @@ const knexConfig: IKnexConfig = {
         client: "postgresql",
         connection: {
             database: process.env.DB_PROD_NAME,
-            user:process.env.DB_PROD_NAME,
+            user: process.env.DB_PROD_USER,
             password: process.env.DB_PROD_PASSWORD,
             host: process.env.DB_PROD_HOST,
         },
